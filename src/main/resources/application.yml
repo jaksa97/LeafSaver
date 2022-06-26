@@ -6,3 +6,9 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+  jackson:
+    default-property-inclusion: NON_EMPTY
+
+springdoc:
+  swagger-ui:
+    path: swagger-ui

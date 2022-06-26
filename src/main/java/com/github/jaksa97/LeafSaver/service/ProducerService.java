@@ -1,5 +1,7 @@
 package com.github.jaksa97.LeafSaver.service;
 
+import com.github.jaksa97.LeafSaver.exception.ErrorInfo;
+import com.github.jaksa97.LeafSaver.exception.ResourceNotFoundException;
 import com.github.jaksa97.LeafSaver.model.api.producer.ProducerDto;
 import com.github.jaksa97.LeafSaver.repository.ProducerRepository;
 import lombok.AllArgsConstructor;
@@ -16,8 +18,9 @@ public class ProducerService {
 
     private final ProducerRepository _producerRepository;
 
-    public ProducerDto getOne(int id) {
-        return _producerRepository.findById(id).orElse(null);
+    public ProducerDto getOne(int id) throws ResourceNotFoundException {
+        return _producerRepository.findById(id)
+                .orElseThrow(()->new ResourceNotFoundException(ErrorInfo.ResourceType.PRODUCER));
     }
 
     public List<ProducerDto> getAll() {
@@ -28,17 +31,18 @@ public class ProducerService {
         return _producerRepository.save(producerDto);
     }
 
-    public ProducerDto update(int id, ProducerDto updatedProducer) {
-        ProducerDto producer = _producerRepository.findById(id).orElse(null);
+    public ProducerDto update(int id, ProducerDto updatedProducer) throws ResourceNotFoundException {
+        ProducerDto producer = _producerRepository.findById(id)
+                .orElseThrow(()->new ResourceNotFoundException(ErrorInfo.ResourceType.PRODUCER));
         producer.setId(updatedProducer.getId());
         producer.setName(updatedProducer.getName());
 
         return _producerRepository.save(producer);
     }
 
-    public void remove(int id) {
+    public void remove(int id) throws ResourceNotFoundException {
         if (!_producerRepository.existsById(id)) {
-            return;
+            throw new ResourceNotFoundException(ErrorInfo.ResourceType.PRODUCER);
         }
 
         _producerRepository.deleteById(id);

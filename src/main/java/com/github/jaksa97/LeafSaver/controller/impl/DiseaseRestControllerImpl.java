@@ -1,8 +1,10 @@
 package com.github.jaksa97.LeafSaver.controller.impl;
 
 import com.github.jaksa97.LeafSaver.controller.DiseaseRestController;
+import com.github.jaksa97.LeafSaver.exception.ResourceNotFoundException;
 import com.github.jaksa97.LeafSaver.model.api.disease.DiseaseDto;
 import com.github.jaksa97.LeafSaver.service.DiseaseService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -10,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@Tag(name = "Diseases")
 public class DiseaseRestControllerImpl implements DiseaseRestController {
 
     private final DiseaseService _diseaseService;
@@ -20,7 +23,7 @@ public class DiseaseRestControllerImpl implements DiseaseRestController {
     }
 
     @Override
-    public DiseaseDto getDisease(int id) {
+    public DiseaseDto getDisease(int id) throws ResourceNotFoundException {
         return _diseaseService.getOne(id);
     }
 
@@ -30,12 +33,12 @@ public class DiseaseRestControllerImpl implements DiseaseRestController {
     }
 
     @Override
-    public DiseaseDto updateDisease(int id, DiseaseDto diseaseDto) {
+    public DiseaseDto updateDisease(int id, DiseaseDto diseaseDto) throws ResourceNotFoundException {
         return _diseaseService.update(id, diseaseDto);
     }
 
     @Override
-    public void removeDisease(int id) {
+    public void removeDisease(int id) throws ResourceNotFoundException {
         _diseaseService.remove(id);
     }
 }
