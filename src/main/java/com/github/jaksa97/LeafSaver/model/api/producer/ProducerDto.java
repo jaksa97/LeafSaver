@@ -5,6 +5,7 @@ import javax.persistence.*;
 
 @Entity
 @AllArgsConstructor
+@NoArgsConstructor
 @Data
 public class ProducerDto {
     @Id

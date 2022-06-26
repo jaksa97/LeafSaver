@@ -16,18 +16,6 @@ public class ProducerService {
 
     private final ProducerRepository _producerRepository;
 
-//    private List<ProducerDto> producers;
-//
-//    public ProducerService() {
-//        producers = new ArrayList<>();
-//
-//        producers.add(new ProducerDto(1, "Producer 1"));
-//        producers.add(new ProducerDto(2, "Producer 2"));
-//        producers.add(new ProducerDto(3, "Producer 3"));
-//        producers.add(new ProducerDto(4, "Producer 4"));
-//        producers.add(new ProducerDto(5, "Producer 5"));
-//    }
-
     public ProducerDto getOne(int id) {
         return _producerRepository.findById(id).orElse(null);
     }

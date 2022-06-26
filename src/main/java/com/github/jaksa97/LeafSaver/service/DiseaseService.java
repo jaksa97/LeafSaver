@@ -13,17 +13,6 @@ import java.util.List;
 public class DiseaseService {
 
     private final DiseaseRepository _diseaseRepository;
-//    private List<DiseaseDto> diseases;
-//
-//    public DiseaseService() {
-//        diseases = new ArrayList<>();
-//
-//        diseases.add(new DiseaseDto(1, "Disease1", "Disease 1"));
-//        diseases.add(new DiseaseDto(2, "Disease2", "Disease 2"));
-//        diseases.add(new DiseaseDto(3, "Disease3", "Disease 3"));
-//        diseases.add(new DiseaseDto(4, "Disease4", "Disease 4"));
-//        diseases.add(new DiseaseDto(5, "Disease5", "Disease 5"));
-//    }
 
     public DiseaseDto getOne(int id) {
         return _diseaseRepository.findById(id).orElse(null);
