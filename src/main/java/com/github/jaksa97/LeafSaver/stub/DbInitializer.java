@@ -22,9 +22,9 @@ public class DbInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        initializeDrugs();
-        initializeDiseases();
-        initializeProducers();
+//        initializeDrugs();
+//        initializeDiseases();
+//        initializeProducers();
     }
 
     private void initializeDrugs() {

@@ -7,6 +7,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@Table(name = "disease")
 public class DiseaseDto {
     @Id
     @GeneratedValue
