@@ -1,6 +1,7 @@
 package com.github.jaksa97.LeafSaver.controller;
 
 import com.github.jaksa97.LeafSaver.model.api.producer.ProducerDto;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,5 +23,6 @@ public interface ProducerRestController {
     ProducerDto updateProducer(@PathVariable int id, @RequestBody ProducerDto producerDto);
 
     @DeleteMapping("/{id}")
-    ProducerDto removeProducer(@PathVariable int id);
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    void removeProducer(@PathVariable int id);
 }

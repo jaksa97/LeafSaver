@@ -1,14 +1,17 @@
 package com.github.jaksa97.LeafSaver.model.api.disease;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.ToString;
+import lombok.*;
+import javax.persistence.*;
 
+@Entity
 @AllArgsConstructor
 @Data
-@ToString
 public class DiseaseDto {
+    @Id
+    @GeneratedValue
     private int id;
+
     private String name;
+
     private String niceName;
 }

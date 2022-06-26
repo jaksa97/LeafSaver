@@ -35,7 +35,7 @@ public class ProducerRestControllerImpl implements ProducerRestController {
     }
 
     @Override
-    public ProducerDto removeProducer(int id) {
-        return _producerService.remove(id);
+    public void removeProducer(int id) {
+        _producerService.remove(id);
     }
 }

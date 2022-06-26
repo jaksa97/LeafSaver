@@ -1,6 +1,7 @@
 package com.github.jaksa97.LeafSaver.controller;
 
 import com.github.jaksa97.LeafSaver.model.api.disease.DiseaseDto;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,5 +23,6 @@ public interface DiseaseRestController {
     DiseaseDto updateDisease(@PathVariable int id, @RequestBody DiseaseDto diseaseDto);
 
     @DeleteMapping("/{id}")
-    DiseaseDto removeDisease(@PathVariable int id);
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    void removeDisease(@PathVariable int id);
 }

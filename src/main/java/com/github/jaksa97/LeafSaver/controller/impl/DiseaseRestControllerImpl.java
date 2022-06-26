@@ -35,7 +35,7 @@ public class DiseaseRestControllerImpl implements DiseaseRestController {
     }
 
     @Override
-    public DiseaseDto removeDisease(int id) {
-        return _diseaseService.remove(id);
+    public void removeDisease(int id) {
+        _diseaseService.remove(id);
     }
 }

@@ -1,13 +1,19 @@
 package com.github.jaksa97.LeafSaver.model.api.drug;
 
 import lombok.*;
+import javax.persistence.*;
 
+@Entity
 @AllArgsConstructor
 @Data
-@ToString
 public class DrugDto {
+    @Id
+    @GeneratedValue
     private int id;
+
     private String name;
+
     private int producerId;
+
     private String description;
 }

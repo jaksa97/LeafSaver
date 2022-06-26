@@ -35,7 +35,7 @@ public class DrugRestControllerImpl implements DrugRestController {
     }
 
     @Override
-    public DrugDto removeDrug(int id) {
-        return _drugService.remove(id);
+    public void removeDrug(int id) {
+        _drugService.remove(id);
     }
 }

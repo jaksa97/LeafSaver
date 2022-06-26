@@ -1,6 +1,7 @@
 package com.github.jaksa97.LeafSaver.controller;
 
 import com.github.jaksa97.LeafSaver.model.api.drug.DrugDto;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,5 +22,6 @@ public interface DrugRestController {
     DrugDto updateDrug(@PathVariable int id, @RequestBody DrugDto drugDto);
 
     @DeleteMapping("/{id}")
-    DrugDto removeDrug(@PathVariable int id);
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    void removeDrug(@PathVariable int id);
 }
