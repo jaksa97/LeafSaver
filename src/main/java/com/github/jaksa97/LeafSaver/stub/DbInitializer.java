@@ -9,7 +9,6 @@ import com.github.jaksa97.LeafSaver.repository.ProducerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-
 import java.util.Arrays;
 
 @Component

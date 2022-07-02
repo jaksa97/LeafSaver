@@ -7,8 +7,6 @@ import com.github.jaksa97.LeafSaver.model.api.drug.DrugDto;
 import com.github.jaksa97.LeafSaver.repository.DrugRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @Service

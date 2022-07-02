@@ -2,14 +2,11 @@ package com.github.jaksa97.LeafSaver.service;
 
 import com.github.jaksa97.LeafSaver.exception.ErrorInfo;
 import com.github.jaksa97.LeafSaver.exception.ResourceNotFoundException;
+import com.github.jaksa97.LeafSaver.exception.UniqueViolationException;
 import com.github.jaksa97.LeafSaver.model.api.producer.ProducerDto;
 import com.github.jaksa97.LeafSaver.repository.ProducerRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
-import org.springframework.core.SpringVersion;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -27,13 +24,20 @@ public class ProducerService {
         return _producerRepository.findAll();
     }
 
-    public ProducerDto save(ProducerDto producerDto) {
+    public ProducerDto save(ProducerDto producerDto) throws UniqueViolationException {
+        if (_producerRepository.findByName(producerDto.getName()).isPresent()) {
+            throw new UniqueViolationException(ErrorInfo.ResourceType.PRODUCER, "'name' already exists");
+        }
         return _producerRepository.save(producerDto);
     }
 
-    public ProducerDto update(int id, ProducerDto updatedProducer) throws ResourceNotFoundException {
+    public ProducerDto update(int id, ProducerDto updatedProducer) throws ResourceNotFoundException, UniqueViolationException {
         ProducerDto producer = _producerRepository.findById(id)
                 .orElseThrow(()->new ResourceNotFoundException(ErrorInfo.ResourceType.PRODUCER));
+
+        if (!producer.getName().equals(updatedProducer.getName()) && _producerRepository.findByName(updatedProducer.getName()).isPresent()) {
+            throw new UniqueViolationException(ErrorInfo.ResourceType.PRODUCER, "'name' already exists");
+        }
         producer.setId(updatedProducer.getId());
         producer.setName(updatedProducer.getName());
 

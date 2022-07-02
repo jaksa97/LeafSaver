@@ -1,6 +1,5 @@
 package com.github.jaksa97.LeafSaver.model.api.disease;
 
-import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.*;
 import javax.persistence.*;
 
