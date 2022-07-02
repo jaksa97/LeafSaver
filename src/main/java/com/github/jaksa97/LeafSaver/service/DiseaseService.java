@@ -4,51 +4,61 @@ import com.github.jaksa97.LeafSaver.exception.ErrorInfo;
 import com.github.jaksa97.LeafSaver.exception.ResourceNotFoundException;
 import com.github.jaksa97.LeafSaver.exception.UniqueViolationException;
 import com.github.jaksa97.LeafSaver.model.api.disease.DiseaseDto;
+import com.github.jaksa97.LeafSaver.model.api.disease.DiseaseSaveDto;
+import com.github.jaksa97.LeafSaver.model.entity.DiseaseEntity;
+import com.github.jaksa97.LeafSaver.model.mapper.DiseaseMapper;
 import com.github.jaksa97.LeafSaver.repository.DiseaseRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
 public class DiseaseService {
 
     private final DiseaseRepository _diseaseRepository;
+    private final DiseaseMapper _diseaseMapper;
 
     public DiseaseDto getOne(int id) throws ResourceNotFoundException {
-        return _diseaseRepository.findById(id)
+        DiseaseEntity diseaseEntity = _diseaseRepository.findById(id)
                 .orElseThrow( () -> new ResourceNotFoundException(ErrorInfo.ResourceType.DISEASE));
+
+        return _diseaseMapper.toDto(diseaseEntity);
     }
 
     public List<DiseaseDto> getAll() {
-        return _diseaseRepository.findAll();
+        return _diseaseRepository.findAll().stream().map(_diseaseMapper::toDto).collect(Collectors.toList());
     }
 
-    public DiseaseDto save(DiseaseDto diseaseDto) throws UniqueViolationException {
-        if (_diseaseRepository.findByName(diseaseDto.getName()).isPresent()) {
+    public DiseaseDto save(DiseaseSaveDto diseaseSaveDto) throws UniqueViolationException {
+        if (_diseaseRepository.findByName(diseaseSaveDto.getName()).isPresent()) {
             throw new UniqueViolationException(ErrorInfo.ResourceType.DISEASE, "'name' already exists");
         }
-        if (_diseaseRepository.findByNiceName(diseaseDto.getNiceName()).isPresent()) {
+        if (_diseaseRepository.findByNiceName(diseaseSaveDto.getNiceName()).isPresent()) {
             throw new UniqueViolationException(ErrorInfo.ResourceType.DISEASE, "'nice name' already exists");
         }
-        return _diseaseRepository.save(diseaseDto);
+
+        return _diseaseMapper.toDto(_diseaseRepository.save(_diseaseMapper.toEntity(diseaseSaveDto)));
     }
 
-    public DiseaseDto update(int id, DiseaseDto updatedDisease) throws ResourceNotFoundException, UniqueViolationException {
-        DiseaseDto disease = _diseaseRepository.findById(id)
+    public DiseaseDto update(int id, DiseaseSaveDto updatedDisease) throws ResourceNotFoundException, UniqueViolationException {
+        DiseaseEntity originalDiseaseEntity = _diseaseRepository.findById(id)
                         .orElseThrow( () -> new ResourceNotFoundException(ErrorInfo.ResourceType.DISEASE) );
 
-        if (!disease.getName().equals(updatedDisease.getName()) && _diseaseRepository.findByName(updatedDisease.getName()).isPresent()) {
+        if (!originalDiseaseEntity.getName().equals(updatedDisease.getName()) && _diseaseRepository.findByName(updatedDisease.getName()).isPresent()) {
             throw new UniqueViolationException(ErrorInfo.ResourceType.DISEASE, "'name' already exists");
         }
-        if (!disease.getNiceName().equals(updatedDisease.getNiceName()) && _diseaseRepository.findByNiceName(updatedDisease.getNiceName()).isPresent()) {
+        if (!originalDiseaseEntity.getNiceName().equals(updatedDisease.getNiceName()) && _diseaseRepository.findByNiceName(updatedDisease.getNiceName()).isPresent()) {
             throw new UniqueViolationException(ErrorInfo.ResourceType.DISEASE, "'nice name' already exists");
         }
-        disease.setId(updatedDisease.getId());
-        disease.setName(updatedDisease.getName());
-        disease.setNiceName(updatedDisease.getNiceName());
 
-        return _diseaseRepository.save(disease);
+        DiseaseEntity diseaseEntity = _diseaseMapper.toEntity(updatedDisease);
+        diseaseEntity.setId(id);
+
+        _diseaseRepository.save(diseaseEntity);
+
+        return _diseaseMapper.toDto(diseaseEntity);
     }
 
     public void remove(int id) throws ResourceNotFoundException {

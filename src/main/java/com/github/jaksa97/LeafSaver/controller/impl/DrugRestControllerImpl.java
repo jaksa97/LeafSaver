@@ -4,6 +4,8 @@ import com.github.jaksa97.LeafSaver.controller.DrugRestController;
 import com.github.jaksa97.LeafSaver.exception.ResourceNotFoundException;
 import com.github.jaksa97.LeafSaver.exception.UniqueViolationException;
 import com.github.jaksa97.LeafSaver.model.api.drug.DrugDto;
+import com.github.jaksa97.LeafSaver.model.api.drug.DrugSaveDto;
+import com.github.jaksa97.LeafSaver.model.entity.DrugEntity;
 import com.github.jaksa97.LeafSaver.service.DrugService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -28,12 +30,12 @@ public class DrugRestControllerImpl implements DrugRestController {
     }
 
     @Override
-    public DrugDto saveDrug(DrugDto drugDto) throws UniqueViolationException {
+    public DrugDto saveDrug(DrugSaveDto drugDto) throws UniqueViolationException {
         return _drugService.save(drugDto);
     }
 
     @Override
-    public DrugDto updateDrug(int id, DrugDto drugDto) throws ResourceNotFoundException, UniqueViolationException {
+    public DrugDto updateDrug(int id, DrugSaveDto drugDto) throws ResourceNotFoundException, UniqueViolationException {
         return _drugService.update(id, drugDto);
     }
 

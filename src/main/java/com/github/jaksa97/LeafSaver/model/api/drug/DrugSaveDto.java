@@ -5,9 +5,7 @@ import lombok.Value;
 
 @Value
 @Builder
-public class DrugDto {
-    int id;
-
+public class DrugSaveDto {
     String name;
 
     int producerId;

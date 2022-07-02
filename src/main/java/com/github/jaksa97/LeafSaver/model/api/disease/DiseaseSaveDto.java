@@ -5,9 +5,7 @@ import lombok.Value;
 
 @Value
 @Builder
-public class DiseaseDto {
-    int id;
-
+public class DiseaseSaveDto {
     String name;
 
     String niceName;

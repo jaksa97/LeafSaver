@@ -5,8 +5,6 @@ import lombok.Value;
 
 @Value
 @Builder
-public class ProducerDto {
-    int id;
-
+public class ProducerSaveDto {
     String name;
 }

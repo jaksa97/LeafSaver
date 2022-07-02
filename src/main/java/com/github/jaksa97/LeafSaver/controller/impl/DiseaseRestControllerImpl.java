@@ -4,6 +4,7 @@ import com.github.jaksa97.LeafSaver.controller.DiseaseRestController;
 import com.github.jaksa97.LeafSaver.exception.ResourceNotFoundException;
 import com.github.jaksa97.LeafSaver.exception.UniqueViolationException;
 import com.github.jaksa97.LeafSaver.model.api.disease.DiseaseDto;
+import com.github.jaksa97.LeafSaver.model.api.disease.DiseaseSaveDto;
 import com.github.jaksa97.LeafSaver.service.DiseaseService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -28,12 +29,12 @@ public class DiseaseRestControllerImpl implements DiseaseRestController {
     }
 
     @Override
-    public DiseaseDto saveDisease(DiseaseDto diseaseDto) throws UniqueViolationException {
+    public DiseaseDto saveDisease(DiseaseSaveDto diseaseDto) throws UniqueViolationException {
         return _diseaseService.save(diseaseDto);
     }
 
     @Override
-    public DiseaseDto updateDisease(int id, DiseaseDto diseaseDto) throws ResourceNotFoundException, UniqueViolationException {
+    public DiseaseDto updateDisease(int id, DiseaseSaveDto diseaseDto) throws ResourceNotFoundException, UniqueViolationException {
         return _diseaseService.update(id, diseaseDto);
     }
 

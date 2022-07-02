@@ -3,6 +3,8 @@ package com.github.jaksa97.LeafSaver.controller;
 import com.github.jaksa97.LeafSaver.exception.ResourceNotFoundException;
 import com.github.jaksa97.LeafSaver.exception.UniqueViolationException;
 import com.github.jaksa97.LeafSaver.model.api.producer.ProducerDto;
+import com.github.jaksa97.LeafSaver.model.api.producer.ProducerSaveDto;
+import com.github.jaksa97.LeafSaver.model.entity.ProducerEntity;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -22,11 +24,11 @@ public interface ProducerRestController {
 
     @PostMapping()
     @Operation(description = "Save producer", summary = "Save producer")
-    ProducerDto saveProducer(@RequestBody ProducerDto producerDto) throws UniqueViolationException;
+    ProducerDto saveProducer(@RequestBody ProducerSaveDto producerDto) throws UniqueViolationException;
 
     @PutMapping("/{id}")
     @Operation(description = "Update producer with ID", summary = "Update producer with ID")
-    ProducerDto updateProducer(@PathVariable int id, @RequestBody ProducerDto producerDto) throws ResourceNotFoundException, UniqueViolationException;
+    ProducerDto updateProducer(@PathVariable int id, @RequestBody ProducerSaveDto producerDto) throws ResourceNotFoundException, UniqueViolationException;
 
     @DeleteMapping("/{id}")
     @Operation(description = "Delete producer with ID", summary = "Delete producer with ID")

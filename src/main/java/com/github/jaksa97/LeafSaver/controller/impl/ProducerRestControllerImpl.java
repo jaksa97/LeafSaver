@@ -4,6 +4,7 @@ import com.github.jaksa97.LeafSaver.controller.ProducerRestController;
 import com.github.jaksa97.LeafSaver.exception.ResourceNotFoundException;
 import com.github.jaksa97.LeafSaver.exception.UniqueViolationException;
 import com.github.jaksa97.LeafSaver.model.api.producer.ProducerDto;
+import com.github.jaksa97.LeafSaver.model.api.producer.ProducerSaveDto;
 import com.github.jaksa97.LeafSaver.service.ProducerService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -28,12 +29,12 @@ public class ProducerRestControllerImpl implements ProducerRestController {
     }
 
     @Override
-    public ProducerDto saveProducer(ProducerDto producerDto) throws UniqueViolationException {
+    public ProducerDto saveProducer(ProducerSaveDto producerDto) throws UniqueViolationException {
         return _producerService.save(producerDto);
     }
 
     @Override
-    public ProducerDto updateProducer(int id, ProducerDto producerDto) throws ResourceNotFoundException, UniqueViolationException {
+    public ProducerDto updateProducer(int id, ProducerSaveDto producerDto) throws ResourceNotFoundException, UniqueViolationException {
         return _producerService.update(id, producerDto);
     }
 

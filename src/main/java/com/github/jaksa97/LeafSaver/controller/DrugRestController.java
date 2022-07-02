@@ -3,6 +3,8 @@ package com.github.jaksa97.LeafSaver.controller;
 import com.github.jaksa97.LeafSaver.exception.ResourceNotFoundException;
 import com.github.jaksa97.LeafSaver.exception.UniqueViolationException;
 import com.github.jaksa97.LeafSaver.model.api.drug.DrugDto;
+import com.github.jaksa97.LeafSaver.model.api.drug.DrugSaveDto;
+import com.github.jaksa97.LeafSaver.model.entity.DrugEntity;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -21,11 +23,11 @@ public interface DrugRestController {
 
     @PostMapping()
     @Operation(description = "Save drug", summary = "Save drug")
-    DrugDto saveDrug(@RequestBody DrugDto drugDto) throws UniqueViolationException;
+    DrugDto saveDrug(@RequestBody DrugSaveDto drugDto) throws UniqueViolationException;
 
     @PutMapping("/{id}")
     @Operation(description = "Update drug with ID", summary = "Update drug with ID")
-    DrugDto updateDrug(@PathVariable int id, @RequestBody DrugDto drugDto) throws ResourceNotFoundException, UniqueViolationException;
+    DrugDto updateDrug(@PathVariable int id, @RequestBody DrugSaveDto drugDto) throws ResourceNotFoundException, UniqueViolationException;
 
     @DeleteMapping("/{id}")
     @Operation(description = "Delete drug with ID", summary = "Delete drug with ID")

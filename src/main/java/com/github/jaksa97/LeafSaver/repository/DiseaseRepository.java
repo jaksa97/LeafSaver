@@ -1,16 +1,16 @@
 package com.github.jaksa97.LeafSaver.repository;
 
-import com.github.jaksa97.LeafSaver.model.api.disease.DiseaseDto;
+import com.github.jaksa97.LeafSaver.model.entity.DiseaseEntity;
 import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 import java.util.Optional;
 
-public interface DiseaseRepository extends CrudRepository<DiseaseDto, Integer> {
+public interface DiseaseRepository extends CrudRepository<DiseaseEntity, Integer> {
 
     @Override
-    List<DiseaseDto> findAll();
+    List<DiseaseEntity> findAll();
 
-    Optional<DiseaseDto> findByName(String name);
+    Optional<DiseaseEntity> findByName(String name);
 
-    Optional<DiseaseDto> findByNiceName(String niceName);
+    Optional<DiseaseEntity> findByNiceName(String niceName);
 }
