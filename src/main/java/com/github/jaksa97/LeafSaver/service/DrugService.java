@@ -8,6 +8,7 @@ import com.github.jaksa97.LeafSaver.model.api.drug.DrugSaveDto;
 import com.github.jaksa97.LeafSaver.model.entity.DrugEntity;
 import com.github.jaksa97.LeafSaver.model.mapper.DrugMapper;
 import com.github.jaksa97.LeafSaver.repository.DrugRepository;
+import com.github.jaksa97.LeafSaver.repository.ProducerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -18,6 +19,7 @@ import java.util.stream.Collectors;
 public class DrugService {
 
     private final DrugRepository _drugRepository;
+    private final ProducerRepository _producerRepository;
     private final DrugMapper _drugMapper;
 
     public DrugDto getOne(int id) throws ResourceNotFoundException {
@@ -31,9 +33,12 @@ public class DrugService {
         return _drugRepository.findAll().stream().map(_drugMapper::toDto).collect(Collectors.toList());
     }
 
-    public DrugDto save(DrugSaveDto drugSaveDto) throws UniqueViolationException {
+    public DrugDto save(DrugSaveDto drugSaveDto) throws UniqueViolationException, ResourceNotFoundException {
         if (_drugRepository.findByName(drugSaveDto.getName()).isPresent()) {
             throw new UniqueViolationException(ErrorInfo.ResourceType.DRUG, "'name' already exists");
+        }
+        if (!_producerRepository.existsById(drugSaveDto.getProducerId())) {
+            throw new ResourceNotFoundException(ErrorInfo.ResourceType.PRODUCER, "Producer with id '" + drugSaveDto.getProducerId() + "' don't exists");
         }
 
         return _drugMapper.toDto(_drugRepository.save(_drugMapper.toEntity(drugSaveDto)));

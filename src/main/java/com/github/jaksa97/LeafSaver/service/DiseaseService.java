@@ -35,9 +35,6 @@ public class DiseaseService {
         if (_diseaseRepository.findByName(diseaseSaveDto.getName()).isPresent()) {
             throw new UniqueViolationException(ErrorInfo.ResourceType.DISEASE, "'name' already exists");
         }
-        if (_diseaseRepository.findByNiceName(diseaseSaveDto.getNiceName()).isPresent()) {
-            throw new UniqueViolationException(ErrorInfo.ResourceType.DISEASE, "'nice name' already exists");
-        }
 
         return _diseaseMapper.toDto(_diseaseRepository.save(_diseaseMapper.toEntity(diseaseSaveDto)));
     }
@@ -48,9 +45,6 @@ public class DiseaseService {
 
         if (!originalDiseaseEntity.getName().equals(updatedDisease.getName()) && _diseaseRepository.findByName(updatedDisease.getName()).isPresent()) {
             throw new UniqueViolationException(ErrorInfo.ResourceType.DISEASE, "'name' already exists");
-        }
-        if (!originalDiseaseEntity.getNiceName().equals(updatedDisease.getNiceName()) && _diseaseRepository.findByNiceName(updatedDisease.getNiceName()).isPresent()) {
-            throw new UniqueViolationException(ErrorInfo.ResourceType.DISEASE, "'nice name' already exists");
         }
 
         DiseaseEntity diseaseEntity = _diseaseMapper.toEntity(updatedDisease);

@@ -18,6 +18,6 @@ public class DiseaseEntity {
     @Column(nullable = false, name = "name", unique = true)
     private String name;
 
-    @Column(nullable = false, name = "nice_name", unique = true)
+    @Column(nullable = false, name = "nice_name")
     private String niceName;
 }

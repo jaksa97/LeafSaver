@@ -1,8 +1,6 @@
 package com.github.jaksa97.LeafSaver.model.entity;
 
 import lombok.*;
-import org.hibernate.annotations.NaturalId;
-
 import javax.persistence.*;
 
 @Entity
@@ -20,9 +18,10 @@ public class DrugEntity {
     @Column(nullable = false, name = "name", unique = true)
     private String name;
 
-    @Column(nullable = false, name = "producerId")
-    private int producerId;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn
+    private ProducerEntity producer;
 
-    @Column(length = 255, nullable = false, name = "description")
+    @Column(length = 1023, nullable = false, name = "description")
     private String description;
 }

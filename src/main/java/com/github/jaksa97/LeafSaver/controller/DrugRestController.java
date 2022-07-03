@@ -23,7 +23,7 @@ public interface DrugRestController {
 
     @PostMapping()
     @Operation(description = "Save drug", summary = "Save drug")
-    DrugDto saveDrug(@RequestBody DrugSaveDto drugDto) throws UniqueViolationException;
+    DrugDto saveDrug(@RequestBody DrugSaveDto drugDto) throws UniqueViolationException, ResourceNotFoundException;
 
     @PutMapping("/{id}")
     @Operation(description = "Update drug with ID", summary = "Update drug with ID")

@@ -30,7 +30,7 @@ public class DrugRestControllerImpl implements DrugRestController {
     }
 
     @Override
-    public DrugDto saveDrug(DrugSaveDto drugDto) throws UniqueViolationException {
+    public DrugDto saveDrug(DrugSaveDto drugDto) throws UniqueViolationException, ResourceNotFoundException {
         return _drugService.save(drugDto);
     }
 
