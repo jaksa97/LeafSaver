@@ -4,7 +4,6 @@ import com.github.jaksa97.LeafSaver.exception.ResourceNotFoundException;
 import com.github.jaksa97.LeafSaver.exception.UniqueViolationException;
 import com.github.jaksa97.LeafSaver.model.api.drug.DrugDto;
 import com.github.jaksa97.LeafSaver.model.api.drug.DrugSaveDto;
-import com.github.jaksa97.LeafSaver.model.entity.DrugEntity;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

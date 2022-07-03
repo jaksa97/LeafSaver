@@ -6,6 +6,7 @@ import com.github.jaksa97.LeafSaver.exception.UniqueViolationException;
 import com.github.jaksa97.LeafSaver.model.api.drug.DrugDto;
 import com.github.jaksa97.LeafSaver.model.api.drug.DrugSaveDto;
 import com.github.jaksa97.LeafSaver.model.entity.DrugEntity;
+import com.github.jaksa97.LeafSaver.model.entity.ProducerEntity;
 import com.github.jaksa97.LeafSaver.model.mapper.DrugMapper;
 import com.github.jaksa97.LeafSaver.repository.DrugRepository;
 import com.github.jaksa97.LeafSaver.repository.ProducerRepository;
@@ -41,7 +42,13 @@ public class DrugService {
             throw new ResourceNotFoundException(ErrorInfo.ResourceType.PRODUCER, "Producer with id '" + drugSaveDto.getProducerId() + "' don't exists");
         }
 
-        return _drugMapper.toDto(_drugRepository.save(_drugMapper.toEntity(drugSaveDto)));
+        DrugEntity drugEntity = _drugMapper.toEntity(drugSaveDto);
+        ProducerEntity producerEntity = _producerRepository.findById(drugSaveDto.getProducerId())
+                .orElseThrow( () -> new ResourceNotFoundException(ErrorInfo.ResourceType.PRODUCER));
+
+        drugEntity.setProducer(producerEntity);
+
+        return _drugMapper.toDto(_drugRepository.save(drugEntity));
     }
 
     public DrugDto update(int id, DrugSaveDto updatedDrug) throws ResourceNotFoundException, UniqueViolationException {
@@ -53,6 +60,11 @@ public class DrugService {
         }
 
         DrugEntity drugEntity = _drugMapper.toEntity(updatedDrug);
+        ProducerEntity producerEntity = _producerRepository.findById(updatedDrug.getProducerId())
+                .orElseThrow( () -> new ResourceNotFoundException(ErrorInfo.ResourceType.PRODUCER));
+
+        drugEntity.setProducer(producerEntity);
+
         drugEntity.setId(id);
 
         _drugRepository.save(drugEntity);

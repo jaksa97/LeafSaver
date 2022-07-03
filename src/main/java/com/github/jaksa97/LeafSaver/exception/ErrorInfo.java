@@ -22,5 +22,6 @@ public class ErrorInfo {
         DRUG,
         DISEASE,
         PRODUCER,
+        CURE,
     }
 }

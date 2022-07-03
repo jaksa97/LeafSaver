@@ -1,8 +1,10 @@
 package com.github.jaksa97.LeafSaver.stub;
 
+import com.github.jaksa97.LeafSaver.model.entity.CureEntity;
 import com.github.jaksa97.LeafSaver.model.entity.DiseaseEntity;
 import com.github.jaksa97.LeafSaver.model.entity.DrugEntity;
 import com.github.jaksa97.LeafSaver.model.entity.ProducerEntity;
+import com.github.jaksa97.LeafSaver.repository.CureRepository;
 import com.github.jaksa97.LeafSaver.repository.DiseaseRepository;
 import com.github.jaksa97.LeafSaver.repository.DrugRepository;
 import com.github.jaksa97.LeafSaver.repository.ProducerRepository;
@@ -19,11 +21,21 @@ public class DbInitializer implements CommandLineRunner {
     private final DiseaseRepository _diseaseRepository;
     private final ProducerRepository _producerRepository;
 
+    private final CureRepository _cureRepository;
+
     @Override
     public void run(String... args) throws Exception {
 //        initializeProducers();
 //        initializeDiseases();
 //        initializeDrugs();
+//        initializeCures();
+    }
+
+    private void initializeCures() {
+        CureEntity cure1 = new CureEntity(1, new DrugEntity(10, "Bravo 720 SC", new ProducerEntity(2, "Syngenta"), "Strains were previously selected for biocontrol ability from collections of >4000 bacteria. Strains 63-49 and 63-28 were tested on cucumber plants grown in rockwool in two replicatedPythium-inoculated trials conducted in British Columbia (B.C). Another inoculated, replicated trial was conducted in Quebec with all five strains. Cucumber yields (fruit number and weight) were measured over a ten-week harvest period. Strain 63-49 caused an early promotion of plant growth and increased cucumber yields at early harvests."), new DiseaseEntity(1, "Blueberry___healthy", "Blueberry healthy"), "Put 48 ml of medicament in 10 l of water");
+        CureEntity cure2 = new CureEntity(2, new DrugEntity(5, "Acaritouch", new ProducerEntity(1, "OAT Agrio"), "Strains were previously selected for biocontrol ability from collections of >4000 bacteria. Strains 63-49 and 63-28 were tested on cucumber plants grown in rockwool in two replicatedPythium-inoculated trials conducted in British Columbia (B.C). Another inoculated, replicated trial was conducted in Quebec with all five strains. Cucumber yields (fruit number and weight) were measured over a ten-week harvest period. Strain 63-49 caused an early promotion of plant growth and increased cucumber yields at early harvests."), new DiseaseEntity(2, "Apple___healthy", "Apple healthy"), "Put 49 ml of medicament in 5 l of water");
+
+        _cureRepository.saveAll(Arrays.asList(cure1, cure2));
     }
 
     private void initializeDrugs() {
