@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping(path = "/cure", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(path = "/cures", produces = MediaType.APPLICATION_JSON_VALUE)
 public interface CureRestControllor {
 
     @GetMapping()
