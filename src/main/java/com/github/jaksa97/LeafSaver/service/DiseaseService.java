@@ -9,6 +9,7 @@ import com.github.jaksa97.LeafSaver.model.api.disease.DiseaseSearchOptions;
 import com.github.jaksa97.LeafSaver.model.entity.DiseaseEntity;
 import com.github.jaksa97.LeafSaver.model.mapper.DiseaseMapper;
 import com.github.jaksa97.LeafSaver.repository.DiseaseRepository;
+import com.github.jaksa97.LeafSaver.repository.specification.DiseaseSearchSpecification;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -31,7 +32,7 @@ public class DiseaseService {
     }
 
     public Page<DiseaseDto> getAll(DiseaseSearchOptions diseaseSearchOptions) {
-        int page = 1;
+        int page = 0;
         if (diseaseSearchOptions.getPage() != null && diseaseSearchOptions.getPage() >= 0) {
             page = diseaseSearchOptions.getPage() - 1;
         }
@@ -40,7 +41,9 @@ public class DiseaseService {
         if (diseaseSearchOptions.getPageSize() != null && diseaseSearchOptions.getPageSize() >= 0) {
             pageSize = diseaseSearchOptions.getPageSize();
         }
-        return _diseaseRepository.findAll(PageRequest.of(page, pageSize)).map(_diseaseMapper::toDto);
+        return _diseaseRepository
+                .findAll(new DiseaseSearchSpecification(diseaseSearchOptions), PageRequest.of(page, pageSize))
+                .map(_diseaseMapper::toDto);
     }
 
     public DiseaseDto save(DiseaseSaveDto diseaseSaveDto) throws UniqueViolationException {

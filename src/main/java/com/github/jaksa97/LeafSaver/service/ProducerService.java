@@ -9,6 +9,7 @@ import com.github.jaksa97.LeafSaver.model.api.producer.ProducerSearchOptions;
 import com.github.jaksa97.LeafSaver.model.entity.ProducerEntity;
 import com.github.jaksa97.LeafSaver.model.mapper.ProducerMapper;
 import com.github.jaksa97.LeafSaver.repository.ProducerRepository;
+import com.github.jaksa97.LeafSaver.repository.specification.ProducerSearchSpecification;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -31,7 +32,7 @@ public class ProducerService {
     }
 
     public Page<ProducerDto> getAll(ProducerSearchOptions producerSearchOptions) {
-        int page = 1;
+        int page = 0;
         if (producerSearchOptions.getPage() != null && producerSearchOptions.getPage() >= 0) {
             page = producerSearchOptions.getPage() - 1;
         }
@@ -40,7 +41,10 @@ public class ProducerService {
         if (producerSearchOptions.getPageSize() != null && producerSearchOptions.getPageSize() >= 0) {
             pageSize = producerSearchOptions.getPageSize();
         }
-        return _producerRepository.findAll(PageRequest.of(page, pageSize)).map(_producerMapper::toDto);
+
+        return _producerRepository
+                .findAll(new ProducerSearchSpecification(producerSearchOptions), PageRequest.of(page, pageSize))
+                .map(_producerMapper::toDto);
     }
 
     public ProducerDto save(ProducerSaveDto producerSaveDto) throws UniqueViolationException {

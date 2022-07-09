@@ -41,7 +41,7 @@ public class CureService {
     }
 
     public Page<CureDto> getAll(CureSearchOptions cureSearchOptions) {
-        int page = 1;
+        int page = 0;
         if (cureSearchOptions.getPage() != null && cureSearchOptions.getPage() >= 0) {
             page = cureSearchOptions.getPage() - 1;
         }

@@ -11,10 +11,13 @@ import com.github.jaksa97.LeafSaver.model.entity.ProducerEntity;
 import com.github.jaksa97.LeafSaver.model.mapper.DrugMapper;
 import com.github.jaksa97.LeafSaver.repository.DrugRepository;
 import com.github.jaksa97.LeafSaver.repository.ProducerRepository;
+import com.github.jaksa97.LeafSaver.repository.specification.DrugSearchSpecification;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+
+import javax.persistence.criteria.Path;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,7 +37,7 @@ public class DrugService {
     }
 
     public Page<DrugDto> getAll(DrugSearchOptions drugSearchOptions) {
-        int page = 1;
+        int page = 0;
         if (drugSearchOptions.getPage() != null && drugSearchOptions.getPage() >= 0) {
             page = drugSearchOptions.getPage() - 1;
         }
@@ -43,7 +46,10 @@ public class DrugService {
         if (drugSearchOptions.getPageSize() != null && drugSearchOptions.getPageSize() >= 0) {
             pageSize = drugSearchOptions.getPageSize();
         }
-        return _drugRepository.findAll(PageRequest.of(page, pageSize)).map(_drugMapper::toDto);
+
+        return _drugRepository
+                .findAll(new DrugSearchSpecification(drugSearchOptions), PageRequest.of(page, pageSize))
+                .map(_drugMapper::toDto);
     }
 
     public DrugDto save(DrugSaveDto drugSaveDto) throws UniqueViolationException, ResourceNotFoundException {
