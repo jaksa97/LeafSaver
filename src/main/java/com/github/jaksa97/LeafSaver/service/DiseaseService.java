@@ -5,10 +5,13 @@ import com.github.jaksa97.LeafSaver.exception.ResourceNotFoundException;
 import com.github.jaksa97.LeafSaver.exception.UniqueViolationException;
 import com.github.jaksa97.LeafSaver.model.api.disease.DiseaseDto;
 import com.github.jaksa97.LeafSaver.model.api.disease.DiseaseSaveDto;
+import com.github.jaksa97.LeafSaver.model.api.disease.DiseaseSearchOptions;
 import com.github.jaksa97.LeafSaver.model.entity.DiseaseEntity;
 import com.github.jaksa97.LeafSaver.model.mapper.DiseaseMapper;
 import com.github.jaksa97.LeafSaver.repository.DiseaseRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,8 +30,17 @@ public class DiseaseService {
         return _diseaseMapper.toDto(diseaseEntity);
     }
 
-    public List<DiseaseDto> getAll() {
-        return _diseaseRepository.findAll().stream().map(_diseaseMapper::toDto).collect(Collectors.toList());
+    public Page<DiseaseDto> getAll(DiseaseSearchOptions diseaseSearchOptions) {
+        int page = 1;
+        if (diseaseSearchOptions.getPage() != null && diseaseSearchOptions.getPage() >= 0) {
+            page = diseaseSearchOptions.getPage() - 1;
+        }
+
+        int pageSize = 10;
+        if (diseaseSearchOptions.getPageSize() != null && diseaseSearchOptions.getPageSize() >= 0) {
+            pageSize = diseaseSearchOptions.getPageSize();
+        }
+        return _diseaseRepository.findAll(PageRequest.of(page, pageSize)).map(_diseaseMapper::toDto);
     }
 
     public DiseaseDto save(DiseaseSaveDto diseaseSaveDto) throws UniqueViolationException {

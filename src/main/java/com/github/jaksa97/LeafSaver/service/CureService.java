@@ -5,6 +5,7 @@ import com.github.jaksa97.LeafSaver.exception.ResourceNotFoundException;
 import com.github.jaksa97.LeafSaver.exception.UniqueViolationException;
 import com.github.jaksa97.LeafSaver.model.api.cure.CureDto;
 import com.github.jaksa97.LeafSaver.model.api.cure.CureSaveDto;
+import com.github.jaksa97.LeafSaver.model.api.cure.CureSearchOptions;
 import com.github.jaksa97.LeafSaver.model.entity.CureEntity;
 import com.github.jaksa97.LeafSaver.model.entity.DiseaseEntity;
 import com.github.jaksa97.LeafSaver.model.entity.DrugEntity;
@@ -13,6 +14,8 @@ import com.github.jaksa97.LeafSaver.repository.CureRepository;
 import com.github.jaksa97.LeafSaver.repository.DiseaseRepository;
 import com.github.jaksa97.LeafSaver.repository.DrugRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -37,8 +40,18 @@ public class CureService {
         return _cureMapper.toDto(cureEntity);
     }
 
-    public List<CureDto> getAll() {
-        return _cureRepository.findAll().stream().map(_cureMapper::toDto).collect(Collectors.toList());
+    public Page<CureDto> getAll(CureSearchOptions cureSearchOptions) {
+        int page = 1;
+        if (cureSearchOptions.getPage() != null && cureSearchOptions.getPage() >= 0) {
+            page = cureSearchOptions.getPage() - 1;
+        }
+
+        int pageSize = 10;
+        if (cureSearchOptions.getPageSize() != null && cureSearchOptions.getPageSize() >= 0) {
+            pageSize = cureSearchOptions.getPageSize();
+        }
+
+        return _cureRepository.findAll(PageRequest.of(page, pageSize)).map(_cureMapper::toDto);
     }
 
     public List<CureDto> getAllByDrugId(int drugId) throws ResourceNotFoundException {

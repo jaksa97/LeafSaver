@@ -4,7 +4,10 @@ import com.github.jaksa97.LeafSaver.exception.ResourceNotFoundException;
 import com.github.jaksa97.LeafSaver.exception.UniqueViolationException;
 import com.github.jaksa97.LeafSaver.model.api.cure.CureDto;
 import com.github.jaksa97.LeafSaver.model.api.cure.CureSaveDto;
+import com.github.jaksa97.LeafSaver.model.api.cure.CureSearchOptions;
 import io.swagger.v3.oas.annotations.Operation;
+import org.springdoc.api.annotations.ParameterObject;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +19,7 @@ public interface CureRestControllor {
 
     @GetMapping()
     @Operation(description = "Get all cures", summary = "Get all cures")
-    List<CureDto> getCures();
+    Page<CureDto> getCures(@ParameterObject CureSearchOptions cureSearchOptions);
 
     @GetMapping("/{id}")
     @Operation(description = "Get cure by ID", summary = "Get cure by ID")

@@ -5,9 +5,11 @@ import com.github.jaksa97.LeafSaver.exception.ResourceNotFoundException;
 import com.github.jaksa97.LeafSaver.exception.UniqueViolationException;
 import com.github.jaksa97.LeafSaver.model.api.disease.DiseaseDto;
 import com.github.jaksa97.LeafSaver.model.api.disease.DiseaseSaveDto;
+import com.github.jaksa97.LeafSaver.model.api.disease.DiseaseSearchOptions;
 import com.github.jaksa97.LeafSaver.service.DiseaseService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
@@ -19,8 +21,8 @@ public class DiseaseRestControllerImpl implements DiseaseRestController {
     private final DiseaseService _diseaseService;
 
     @Override
-    public List<DiseaseDto> getDiseases() {
-        return _diseaseService.getAll();
+    public Page<DiseaseDto> getDiseases(DiseaseSearchOptions diseaseSearchOptions) {
+        return _diseaseService.getAll(diseaseSearchOptions);
     }
 
     @Override

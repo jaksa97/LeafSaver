@@ -4,7 +4,10 @@ import com.github.jaksa97.LeafSaver.exception.ResourceNotFoundException;
 import com.github.jaksa97.LeafSaver.exception.UniqueViolationException;
 import com.github.jaksa97.LeafSaver.model.api.drug.DrugDto;
 import com.github.jaksa97.LeafSaver.model.api.drug.DrugSaveDto;
+import com.github.jaksa97.LeafSaver.model.api.drug.DrugSearchOptions;
 import io.swagger.v3.oas.annotations.Operation;
+import org.springdoc.api.annotations.ParameterObject;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +17,7 @@ import java.util.List;
 public interface DrugRestController {
     @GetMapping()
     @Operation(description = "Get all drugs", summary = "Get all drugs")
-    List<DrugDto> getDrugs();
+    Page<DrugDto> getDrugs(@ParameterObject DrugSearchOptions drugSearchOptions);
 
     @GetMapping("/{id}")
     @Operation(description = "Get drug by ID", summary = "Get drug by ID")

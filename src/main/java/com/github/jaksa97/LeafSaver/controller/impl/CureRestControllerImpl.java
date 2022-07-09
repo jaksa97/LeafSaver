@@ -5,9 +5,11 @@ import com.github.jaksa97.LeafSaver.exception.ResourceNotFoundException;
 import com.github.jaksa97.LeafSaver.exception.UniqueViolationException;
 import com.github.jaksa97.LeafSaver.model.api.cure.CureDto;
 import com.github.jaksa97.LeafSaver.model.api.cure.CureSaveDto;
+import com.github.jaksa97.LeafSaver.model.api.cure.CureSearchOptions;
 import com.github.jaksa97.LeafSaver.service.CureService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -20,8 +22,8 @@ public class CureRestControllerImpl implements CureRestControllor {
     private final CureService _cureService;
 
     @Override
-    public List<CureDto> getCures() {
-        return _cureService.getAll();
+    public Page<CureDto> getCures(CureSearchOptions cureSearchOptions) {
+        return _cureService.getAll(cureSearchOptions);
     }
 
     @Override

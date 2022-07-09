@@ -5,9 +5,11 @@ import com.github.jaksa97.LeafSaver.exception.ResourceNotFoundException;
 import com.github.jaksa97.LeafSaver.exception.UniqueViolationException;
 import com.github.jaksa97.LeafSaver.model.api.producer.ProducerDto;
 import com.github.jaksa97.LeafSaver.model.api.producer.ProducerSaveDto;
+import com.github.jaksa97.LeafSaver.model.api.producer.ProducerSearchOptions;
 import com.github.jaksa97.LeafSaver.service.ProducerService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
@@ -19,8 +21,8 @@ public class ProducerRestControllerImpl implements ProducerRestController {
     private final ProducerService _producerService;
 
     @Override
-    public List<ProducerDto> getProducers() {
-        return _producerService.getAll();
+    public Page<ProducerDto> getProducers(ProducerSearchOptions producerSearchOptions) {
+        return _producerService.getAll(producerSearchOptions);
     }
 
     @Override

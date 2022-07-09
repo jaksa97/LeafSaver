@@ -5,12 +5,15 @@ import com.github.jaksa97.LeafSaver.exception.ResourceNotFoundException;
 import com.github.jaksa97.LeafSaver.exception.UniqueViolationException;
 import com.github.jaksa97.LeafSaver.model.api.drug.DrugDto;
 import com.github.jaksa97.LeafSaver.model.api.drug.DrugSaveDto;
+import com.github.jaksa97.LeafSaver.model.api.drug.DrugSearchOptions;
 import com.github.jaksa97.LeafSaver.model.entity.DrugEntity;
 import com.github.jaksa97.LeafSaver.model.entity.ProducerEntity;
 import com.github.jaksa97.LeafSaver.model.mapper.DrugMapper;
 import com.github.jaksa97.LeafSaver.repository.DrugRepository;
 import com.github.jaksa97.LeafSaver.repository.ProducerRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -30,8 +33,17 @@ public class DrugService {
         return _drugMapper.toDto(drugEntity);
     }
 
-    public List<DrugDto> getAll() {
-        return _drugRepository.findAll().stream().map(_drugMapper::toDto).collect(Collectors.toList());
+    public Page<DrugDto> getAll(DrugSearchOptions drugSearchOptions) {
+        int page = 1;
+        if (drugSearchOptions.getPage() != null && drugSearchOptions.getPage() >= 0) {
+            page = drugSearchOptions.getPage() - 1;
+        }
+
+        int pageSize = 10;
+        if (drugSearchOptions.getPageSize() != null && drugSearchOptions.getPageSize() >= 0) {
+            pageSize = drugSearchOptions.getPageSize();
+        }
+        return _drugRepository.findAll(PageRequest.of(page, pageSize)).map(_drugMapper::toDto);
     }
 
     public DrugDto save(DrugSaveDto drugSaveDto) throws UniqueViolationException, ResourceNotFoundException {

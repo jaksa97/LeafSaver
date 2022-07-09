@@ -4,8 +4,11 @@ import com.github.jaksa97.LeafSaver.exception.ResourceNotFoundException;
 import com.github.jaksa97.LeafSaver.exception.UniqueViolationException;
 import com.github.jaksa97.LeafSaver.model.api.disease.DiseaseDto;
 import com.github.jaksa97.LeafSaver.model.api.disease.DiseaseSaveDto;
+import com.github.jaksa97.LeafSaver.model.api.disease.DiseaseSearchOptions;
 import com.github.jaksa97.LeafSaver.model.entity.DiseaseEntity;
 import io.swagger.v3.oas.annotations.Operation;
+import org.springdoc.api.annotations.ParameterObject;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +19,7 @@ public interface DiseaseRestController {
 
     @GetMapping()
     @Operation(description = "Get all diseases", summary = "Get all diseases")
-    List<DiseaseDto> getDiseases();
+    Page<DiseaseDto> getDiseases(@ParameterObject DiseaseSearchOptions diseaseSearchOptions);
 
     @GetMapping("/{id}")
     @Operation(description = "Get disease by ID", summary = "Get disease by ID")

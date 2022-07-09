@@ -5,10 +5,13 @@ import com.github.jaksa97.LeafSaver.exception.ResourceNotFoundException;
 import com.github.jaksa97.LeafSaver.exception.UniqueViolationException;
 import com.github.jaksa97.LeafSaver.model.api.producer.ProducerDto;
 import com.github.jaksa97.LeafSaver.model.api.producer.ProducerSaveDto;
+import com.github.jaksa97.LeafSaver.model.api.producer.ProducerSearchOptions;
 import com.github.jaksa97.LeafSaver.model.entity.ProducerEntity;
 import com.github.jaksa97.LeafSaver.model.mapper.ProducerMapper;
 import com.github.jaksa97.LeafSaver.repository.ProducerRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,8 +30,17 @@ public class ProducerService {
         return _producerMapper.toDto(producerEntity);
     }
 
-    public List<ProducerDto> getAll() {
-        return _producerRepository.findAll().stream().map(_producerMapper::toDto).collect(Collectors.toList());
+    public Page<ProducerDto> getAll(ProducerSearchOptions producerSearchOptions) {
+        int page = 1;
+        if (producerSearchOptions.getPage() != null && producerSearchOptions.getPage() >= 0) {
+            page = producerSearchOptions.getPage() - 1;
+        }
+
+        int pageSize = 10;
+        if (producerSearchOptions.getPageSize() != null && producerSearchOptions.getPageSize() >= 0) {
+            pageSize = producerSearchOptions.getPageSize();
+        }
+        return _producerRepository.findAll(PageRequest.of(page, pageSize)).map(_producerMapper::toDto);
     }
 
     public ProducerDto save(ProducerSaveDto producerSaveDto) throws UniqueViolationException {
