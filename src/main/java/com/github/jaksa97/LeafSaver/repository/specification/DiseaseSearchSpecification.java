@@ -6,7 +6,6 @@ import com.github.jaksa97.LeafSaver.model.entity.DiseaseEntity_;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
-
 import javax.persistence.criteria.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +40,18 @@ public class DiseaseSearchSpecification implements Specification<DiseaseEntity> 
             } else {
                 query.orderBy(criteriaBuilder.desc(propertyToSortBy));
             }
+        }
+
+        if (_diseaseSearchOptions.getName() != null) {
+            predicates.add(criteriaBuilder.like(
+                    criteriaBuilder.lower(name),
+                    "%" + _diseaseSearchOptions.getName().toLowerCase() + "%"));
+        }
+
+        if (_diseaseSearchOptions.getNiceName() != null) {
+            predicates.add(criteriaBuilder.like(
+                    criteriaBuilder.lower(niceName),
+                    "%" + _diseaseSearchOptions.getNiceName().toLowerCase() + "%"));
         }
 
         return criteriaBuilder.and(predicates.toArray(new Predicate[0]));

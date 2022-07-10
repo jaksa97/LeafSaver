@@ -5,14 +5,12 @@ import com.github.jaksa97.LeafSaver.exception.UniqueViolationException;
 import com.github.jaksa97.LeafSaver.model.api.producer.ProducerDto;
 import com.github.jaksa97.LeafSaver.model.api.producer.ProducerSaveDto;
 import com.github.jaksa97.LeafSaver.model.api.producer.ProducerSearchOptions;
-import com.github.jaksa97.LeafSaver.model.entity.ProducerEntity;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springdoc.api.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
 
 @RequestMapping(path = "/producers", produces = MediaType.APPLICATION_JSON_VALUE)
 public interface ProducerRestController {

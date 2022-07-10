@@ -20,6 +20,8 @@ public class ProducerSearchOptions {
 
     Sort.Direction sortDirection;
 
+    String name;
+
     public enum SortByField {
         name,
     }

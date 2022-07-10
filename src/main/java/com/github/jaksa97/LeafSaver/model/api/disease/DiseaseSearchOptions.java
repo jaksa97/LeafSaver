@@ -20,6 +20,10 @@ public class DiseaseSearchOptions {
 
     Sort.Direction sortDirection;
 
+    String name;
+
+    String niceName;
+
     public enum SortByField {
         name,
         niceName,

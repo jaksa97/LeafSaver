@@ -20,6 +20,8 @@ public class DrugSearchOptions {
 
     Sort.Direction sortDirection;
 
+    String name;
+
     public enum SortByField {
         name,
     }

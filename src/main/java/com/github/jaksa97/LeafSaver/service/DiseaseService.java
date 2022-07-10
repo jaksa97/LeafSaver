@@ -10,15 +10,13 @@ import com.github.jaksa97.LeafSaver.model.entity.DiseaseEntity;
 import com.github.jaksa97.LeafSaver.model.mapper.DiseaseMapper;
 import com.github.jaksa97.LeafSaver.repository.DiseaseRepository;
 import com.github.jaksa97.LeafSaver.repository.specification.DiseaseSearchSpecification;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class DiseaseService {
 
     private final DiseaseRepository _diseaseRepository;

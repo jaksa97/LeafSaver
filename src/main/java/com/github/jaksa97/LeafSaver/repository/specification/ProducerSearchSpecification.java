@@ -6,7 +6,6 @@ import com.github.jaksa97.LeafSaver.model.entity.ProducerEntity_;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
-
 import javax.persistence.criteria.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +36,12 @@ public class ProducerSearchSpecification implements Specification<ProducerEntity
             } else {
                 query.orderBy(criteriaBuilder.desc(propertyToSortBy));
             }
+        }
+
+        if (_producerSearchOptions.getName() != null) {
+            predicates.add(criteriaBuilder.like(
+                    criteriaBuilder.lower(name),
+                    "%" + _producerSearchOptions.getName().toLowerCase() + "%"));
         }
 
         return criteriaBuilder.and(predicates.toArray(new Predicate[0]));

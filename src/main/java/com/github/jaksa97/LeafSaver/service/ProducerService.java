@@ -10,15 +10,13 @@ import com.github.jaksa97.LeafSaver.model.entity.ProducerEntity;
 import com.github.jaksa97.LeafSaver.model.mapper.ProducerMapper;
 import com.github.jaksa97.LeafSaver.repository.ProducerRepository;
 import com.github.jaksa97.LeafSaver.repository.specification.ProducerSearchSpecification;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class ProducerService {
 
     private final ProducerRepository _producerRepository;
