@@ -25,10 +25,14 @@ public class DbInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-//        initializeProducers();
-//        initializeDiseases();
-//        initializeDrugs();
-//        initializeCures();
+        if (!Arrays.asList(args).contains("--init-db")) {
+            return;
+        }
+
+        initializeProducers();
+        initializeDiseases();
+        initializeDrugs();
+        initializeCures();
     }
 
     private void initializeCures() {
