@@ -2,7 +2,7 @@
 
 This project is an API for LeafSaver application written in Sprin Boot
 
-##Setting up
+## Setting up
 
 In order ro run this application you need to set up:
 - `java` development environment (IntelliJ preferred)
