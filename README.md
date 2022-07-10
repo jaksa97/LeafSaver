@@ -14,7 +14,7 @@ In order ro run this application you need to set up:
 You will need to set up fallowing environment variables in order to successfully run this application:
 - `LEAFSAVE_DB_HOST` - hostname or ip address of `mysql` server
 - `LEAFSAVER_DB` - name of database on which you want to operate
-- `LEAFSAVEER_DB_USERNAME` - database serveer user
+- `LEAFSAVER_DB_USERNAME` - database serveer user
 - `LEAFSAVER_DB_PASSWORD` - password for  database user
 
 ### Profiles
