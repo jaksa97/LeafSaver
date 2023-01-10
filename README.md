@@ -1,6 +1,6 @@
 # LeafSaver
 
-This project is an API for LeafSaver application written in Sprin Boot
+This project is an API for LeafSaver application written in Spring Boot
 
 ## Setting up
 
